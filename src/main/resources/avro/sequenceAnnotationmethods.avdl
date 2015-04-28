@@ -29,10 +29,39 @@ protocol SequenceAnnotationMethods {
     /**
     If specified, this query matches only annotations which overlap this path.
     */
-    union { null, org.ga4gh.models.Path } range = null;
+    /* TODO: path not used yet, as graph code is not working in server.
+       Fields below are copied directly from variants.avdl for now.
+    union { null, org.ga4gh.models.Path } path = null; */
 
-    // TODO: Fix this field. Clarify semantics around how OntologyTerm matching works, or
-    // change the Ontology term field on the feature.
+    /**
+    Only return features with on the reference with this name.  One of this
+    field or `referenceId` is required.  (case-sensitive, exact match)
+    */
+    union { null, string } referenceName = null;
+
+    /**
+    Only return feature on the reference with this ID. One of this field or
+    `referenceName` is required.
+    */
+    union { null, string } referenceId = null;
+
+    /**
+    Required. The beginning of the window (0-based, inclusive) for which
+    overlapping features should be returned.  Genomic positions are
+    non-negative integers less than reference length.  Requests spanning the
+    join of circular genomes are represented as two requests one on each side
+    of the join (position 0).
+    */
+    long start;
+
+    /**
+    Required. The end of the window (0-based, exclusive) for which overlapping
+    features should be returned.
+    */
+    long end;
+
+    // TODO: Fix this field. Clarify semantics around how OntologyTerm
+    // matching works, or change the Ontology term field on the feature.
     /**
     If specified, this query matches only annotations which match one of the
     provided feature types.
