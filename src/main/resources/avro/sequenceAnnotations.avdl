@@ -51,6 +51,8 @@ protocol SequenceAnnotations {
   Values should be split into the array elements instead of using a separator
   syntax that needs to parsed.
   */
+  // TODO: how are multiple instances of a given attribute vs multiple values
+  // for an attribute distinguished
   record Attributes {
     map<array<union {string, ExternalIdentifier, OntologyTerm}>> vals = {};
   }
@@ -195,14 +197,14 @@ protocol SequenceAnnotations {
   }
 
   /*
-  A set of region annotations
+  A set of sequence features annotations
   */
   record FeatureSet {
     /** The ID of this annotation set. */
     string id;
 
     /** The ID of the dataset this annotation set belongs to. */
-    union { null, string } datasetId = null;
+   union { null, string } datasetId = null;
 
     /**
     The ID of the reference set which defines the coordinate-space for this
